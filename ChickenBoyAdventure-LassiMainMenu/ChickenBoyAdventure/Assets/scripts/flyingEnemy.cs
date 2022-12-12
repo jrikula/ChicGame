@@ -23,8 +23,7 @@ public class flyingEnemy : MonoBehaviour
     public DetectionZone attackZone;
 
  
-    
-
+ 
     public bool _hasTarget = false;
     public bool HasTarget
     {
@@ -35,7 +34,7 @@ public class flyingEnemy : MonoBehaviour
         private set
         {
             _hasTarget = value;
-            animator.SetBool("hasTarget", value);
+            animator.SetBool(AnimationStrings.hasTarget, value);
         }
     }
 
@@ -43,10 +42,20 @@ public class flyingEnemy : MonoBehaviour
     {
         get
         {
-            return animator.GetBool("canMove");
+            return animator.GetBool(AnimationStrings.canMove);
         }
     }
 
+    public float AttackCooldown {
+        get 
+        {
+            return animator.GetFloat(AnimationStrings.attackCooldown);
+        }
+        private set
+        {
+            animator.SetFloat(AnimationStrings.attackCooldown, Mathf.Max(value, 0));
+        }
+    }
 
     void Awake()
     {
@@ -64,7 +73,11 @@ public class flyingEnemy : MonoBehaviour
 
     void Update()
     {
-        HasTarget = attackZone.detectedColliders.Count > 0;   
+        HasTarget = attackZone.detectedColliders.Count > 0;  
+          if(AttackCooldown > 0)
+             {
+                AttackCooldown -= Time.deltaTime;
+             } 
     }
 
 
@@ -76,12 +89,13 @@ public class flyingEnemy : MonoBehaviour
             {
                     Flight();    
             }
-            else
+             else
             {
                 rb.velocity = Vector3.zero;
             }
            
         }
+       
         
        
 
@@ -111,7 +125,10 @@ public class flyingEnemy : MonoBehaviour
 
 
 
-
+  public void OnHit(int damage, Vector2 knockback)
+    {
+        rb.velocity = new Vector2(knockback.x, rb.velocity.y + knockback.y);
+    }
     private void updateDir()
     {
         Vector3 locScale = transform.localScale;
