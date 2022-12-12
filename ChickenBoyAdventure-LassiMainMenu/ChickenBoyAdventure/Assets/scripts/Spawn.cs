@@ -24,7 +24,7 @@ public class Spawn : MonoBehaviour
             anim.Play("egg_crack", 0, 0.0f);
             if (!touchingDirections.IsGrounded)
             {
-                Destroy(clone, 5f);
+                Destroy(clone, 3f);
             }
         }
     }
