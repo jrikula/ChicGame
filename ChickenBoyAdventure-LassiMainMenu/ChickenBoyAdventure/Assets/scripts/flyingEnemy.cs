@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class flyingEnemy : MonoBehaviour
 {
-     public float flySpeed = 4f;
+
+    public float flySpeed = 4f;
     public float flyStopRate = 0.2f;
     public float waypointReachDistance= 0.1f;
 
@@ -35,6 +36,7 @@ public class flyingEnemy : MonoBehaviour
         {
             _hasTarget = value;
             animator.SetBool(AnimationStrings.hasTarget, value);
+
         }
     }
 
@@ -74,6 +76,7 @@ public class flyingEnemy : MonoBehaviour
     void Update()
     {
         HasTarget = attackZone.detectedColliders.Count > 0;  
+       
           if(AttackCooldown > 0)
              {
                 AttackCooldown -= Time.deltaTime;

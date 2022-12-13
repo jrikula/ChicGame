@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
-{
+{   
+
     public UnityEvent<int, Vector2> damageableHit;
     Animator animator;
 
@@ -42,6 +43,7 @@ public class Damageable : MonoBehaviour
             if(_health <= 0)
             {
                 IsAlive = false;
+                
             }
         }
     }
