@@ -14,10 +14,14 @@ public class CollisionDetector : MonoBehaviour
     [SerializeField]
     private UnityEvent _collisionExit;
 
+    [SerializeField]
+    private AudioSource keyPickup;
+
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.GetComponent(_colliderScript))
         {
+            keyPickup.Play();
             _collisionEntered?.Invoke();
         }
     }
