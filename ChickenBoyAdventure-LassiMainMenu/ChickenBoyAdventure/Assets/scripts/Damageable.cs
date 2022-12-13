@@ -7,11 +7,12 @@ public class Damageable : MonoBehaviour
 {
     public UnityEvent<int, Vector2> damageableHit;
     Animator animator;
+    public UnityEvent<int, int> healthChanged;
 
 
 
     [SerializeField]
-    private int _maxHealth = 100;
+    public int _maxHealth = 100;
 
     public int MaxHealth
     {
@@ -26,7 +27,7 @@ public class Damageable : MonoBehaviour
     }
 
     [SerializeField]
-    private int _health = 100;
+    public int _health = 100;
 
     public int Health
     {
@@ -37,7 +38,7 @@ public class Damageable : MonoBehaviour
         set
         {
             _health = value;
-
+            healthChanged?.Invoke(_health, MaxHealth);
             // If health drops below 0, character is no longer alive
             if(_health <= 0)
             {
