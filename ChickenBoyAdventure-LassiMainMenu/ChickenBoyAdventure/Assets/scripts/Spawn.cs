@@ -10,6 +10,12 @@ public class Spawn : MonoBehaviour
     Animator anim;
     TouchingDirections touchingDirections;
 
+    [SerializeField]
+    private AudioSource spawnSoundEffect;
+
+    [SerializeField]
+    private AudioSource crackSoundEffect;
+
     void Awake()
     {
         touchingDirections = GetComponent<TouchingDirections>();
@@ -20,10 +26,12 @@ public class Spawn : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && !touchingDirections.IsGrounded)
         {
+            spawnSoundEffect.Play();
             GameObject clone = (GameObject)Instantiate(original, platformPosition.position, platformPosition.rotation);
             anim.Play("egg_crack", 0, 0.0f);
             if (!touchingDirections.IsGrounded)
             {
+                crackSoundEffect.PlayDelayed(3);
                 Destroy(clone, 3f);
             }
         }
