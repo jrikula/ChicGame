@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerController : MonoBehaviour
 {
+      
     public float walkSpeed = 5f;
     public float jumpImpulse = 10;
     public float runSpeed = 5f;
@@ -17,19 +18,25 @@ public class PlayerController : MonoBehaviour
 
 
  
-public float CurrentMoveSpeed    {
-get        {
-if (CanMove)            
-{               
-if (IsMoving && !touchingDirections.IsOnWall)               
-{                    return walkSpeed;               
-}                else                {                    
-//Idle speed is 0                   
-return 0;                }            
-}            else            
-{               
-//Movement locked                
-return 0;            }        }    }
+public float CurrentMoveSpeed{
+get{
+    if (CanMove)
+    {
+        if (IsMoving && !touchingDirections.IsOnWall)
+        {
+            return walkSpeed;
+        }else
+        {
+        //Idle speed is 0
+            return 0;
+        }
+        }else
+        {
+        //Movement locked
+        return 0;
+    }
+    }
+}
 
 
 
@@ -106,7 +113,7 @@ return 0;            }        }    }
     private void FixedUpdate()
     {
     if(!damageable.LockVelocity)
-            rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed    , rb.velocity.y);
+            rb.velocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.velocity.y);
 
         animator.SetFloat(AnimationStrings.yVelocity, rb.velocity.y);
     }
